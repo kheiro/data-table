@@ -1,0 +1,120 @@
+/* DataTable.scss */
+
+// Define common colors
+$lightBackgroundColor: #f0f0f0;
+$lightTextColor: #000;
+$darkBackgroundColor: #1f1f1f;
+$darkTextColor: #fff;
+$accentColor: #16a085;
+
+/* Common styles for both light and dark modes */
+.data-table {
+    margin: 1.25rem; /* 20px in rem */
+
+    /* Style the input for filtering */
+    input[type='text'] {
+        width: 18.75rem; /* 300px in rem */
+        padding: 0.5rem; /* 8px in rem */
+        margin-bottom: 1.25rem; /* 10px in rem */
+        border: 1px solid #ccc;
+        border-radius: 0.25rem; /* 4px in rem */
+    }
+
+    /* Style the table */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #ddd;
+    }
+
+    /* Style the table header */
+    th {
+        text-align: left;
+        padding: 0.75rem; /* 12px in rem */
+        cursor: pointer;
+        background-color: #f2f2f2;
+
+        div {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+    /* Style the table header on hover */
+    th:hover {
+        background-color: #9f9f9f;
+    }
+
+    /* Style the table rows */
+    tr {
+        border-bottom: 1px solid #ddd;
+    }
+
+    /* Style the table cell */
+    td {
+        padding: 0.5rem; /* 8px in rem */
+    }
+
+    /* Style the pagination controls */
+    .pagination {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 1.25rem; /* 10px in rem */
+
+        span {
+            padding: 0.2rem;
+        }
+    }
+
+    /* Style the buttons */
+    button {
+        font-size: 1rem;
+        padding: 0.8rem;
+        background-color: #fff;
+        color: $lightTextColor;
+        border: 1px solid $accentColor;
+        border-radius: 0.25rem; /* 4px in rem */
+        cursor: pointer;
+    }
+
+    /* Disable the Previous Page button when on the first page */
+    button:disabled:first-child,
+    button[disabled]:first-child {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+
+    /* Disable the Next Page button when on the last page */
+    button:disabled:last-child,
+    button[disabled]:last-child {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+
+    /* Style the select input for rows per page */
+    label {
+        margin-right: 0.625rem; /* 10px in rem */
+    }
+
+    select {
+        padding: 0.5rem; /* 8px in rem */
+        border: 1px solid #ccc;
+        border-radius: 0.25rem; /* 4px in rem */
+    }
+}
+
+/* Dark mode styles */
+.dark-mode {
+    background-color: $darkBackgroundColor;
+    color: $darkTextColor;
+
+    th {
+        background-color: $darkBackgroundColor;
+        color: $darkTextColor;
+    }
+
+    a {
+        color: $darkTextColor;
+    }
+}
