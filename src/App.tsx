@@ -44,7 +44,14 @@ function App() {
     return (
         <div className="app">
             <div className="container">
-                <button onClick={toggleDarkMode}>Toggle Dark Mode</button>
+                <header className="header">
+                    <h1>My Data</h1>
+
+                    <button onClick={toggleDarkMode}>
+                        {darkMode ? <>&#9728;</> : <>&#9790;</>}
+                    </button>
+                </header>
+
                 <DataTable<User>
                     dataSource={users}
                     columns={usersColumns}

@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+
 import { Column } from '../Types/Types'
 
 interface TableBodyProps<T> {

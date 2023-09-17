@@ -9,12 +9,16 @@ $accentColor: #16a085;
 
 /* Common styles for both light and dark modes */
 .data-table {
+    padding: 1rem;
     margin: 1.25rem; /* 20px in rem */
+    border: 1px solid #ccc;
+    border-radius: 16px; /* 4px in rem */
 
     /* Style the input for filtering */
     input[type='text'] {
         width: 18.75rem; /* 300px in rem */
         padding: 0.5rem; /* 8px in rem */
+        margin-top: 0.5rem; /* 10px in rem */
         margin-bottom: 1.25rem; /* 10px in rem */
         border: 1px solid #ccc;
         border-radius: 0.25rem; /* 4px in rem */

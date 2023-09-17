@@ -17,7 +17,7 @@ export interface DataTableProps<T> {
 function DataTable<T>({
     dataSource = [],
     columns,
-    rowsPerPageOptions = [15, 30, 50],
+    rowsPerPageOptions = [10, 20, 30],
     darkMode = false,
 }: DataTableProps<T>) {
     const {

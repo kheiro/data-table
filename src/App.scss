@@ -2,3 +2,33 @@
     width: 80%;
     margin: 1rem auto;
 }
+
+.header {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+        background-color: #fff;
+        color: #000;
+        border: 1px solid #ccc;
+        border-radius: 0.25rem; /* 4px in rem */
+        cursor: pointer;
+    }
+
+    /* Disable the Previous Page button when on the first page */
+    button:disabled:first-child,
+    button[disabled]:first-child {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+
+    /* Disable the Next Page button when on the last page */
+    button:disabled:last-child,
+    button[disabled]:last-child {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+}
