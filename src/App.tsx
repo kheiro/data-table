@@ -1,5 +1,7 @@
 import { users } from './api/users'
 
+import DataTable from './Components/DataTable'
+import useDarkMode from './Hooks/useDarkMode'
 import './App.scss'
 
 interface User {
@@ -36,10 +38,17 @@ const usersColumns: Column<User>[] = [
 ]
 
 function App() {
+    const { darkMode, toggleDarkMode } = useDarkMode()
+
     return (
         <div className="app">
             <div className="container">
-                <DataTable<User> dataSource={users} columns={usersColumns} />
+                <button onClick={toggleDarkMode}>Toggle Dark Mode</button>
+                <DataTable<User>
+                    dataSource={users}
+                    columns={usersColumns}
+                    darkMode={darkMode}
+                />
             </div>
         </div>
     )
