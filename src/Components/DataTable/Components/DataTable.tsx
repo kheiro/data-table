@@ -3,13 +3,22 @@ import FilterInput from './FilterInput'
 import TableHeader from './TableHeader'
 import TableBody from './TableBody'
 import PaginationControls from './PaginationControls'
-import { DataTableProps } from '../Types/Types'
+
+import { Column } from '../Types/Types'
 import '../Styles/DataTable.scss'
+
+export interface DataTableProps<T> {
+    dataSource: T[]
+    columns: Column<T>[]
+    rowsPerPageOptions?: number[]
+    darkMode: Boolean
+}
 
 function DataTable<T>({
     dataSource = [],
     columns,
     rowsPerPageOptions = [15, 30, 50],
+    darkMode = false,
 }: DataTableProps<T>) {
     const {
         sortedBy,
@@ -29,7 +38,7 @@ function DataTable<T>({
     })
 
     return (
-        <div className="data-table">
+        <div className={`data-table ${darkMode && 'dark-mode'}`}>
             <FilterInput query={query} setQuery={setQuery} />
             <table>
                 <TableHeader

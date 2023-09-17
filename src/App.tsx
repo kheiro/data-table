@@ -2,6 +2,7 @@ import { users } from './api/users'
 
 import DataTable from './Components/DataTable'
 import useDarkMode from './Hooks/useDarkMode'
+
 import './App.scss'
 
 interface User {
