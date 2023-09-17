@@ -1,4 +1,4 @@
-import { useState, ReactNode } from 'react'
+import React, { useState, useMemo, ReactNode } from 'react'
 
 interface Column<T> {
     key: keyof T
@@ -9,9 +9,14 @@ interface Column<T> {
 interface DataTableProps<T> {
     dataSource: T[]
     columns: Column<T>[]
+    rowsPerPageOptions?: number[]
 }
 
-function DataTable<T>({ dataSource = [], columns }: DataTableProps<T>) {
+function DataTable<T>({
+    dataSource = [],
+    columns,
+    rowsPerPageOptions = [15, 30, 50],
+}: DataTableProps<T>) {
     const [sortedBy, setSortedBy] = useState<{
         column: keyof T
         asc: boolean
@@ -21,8 +26,10 @@ function DataTable<T>({ dataSource = [], columns }: DataTableProps<T>) {
     })
 
     const [query, setQuery] = useState('')
+    const [currentPage, setCurrentPage] = useState(1)
+    const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0])
 
-    const sortedAndFilteredData = () => {
+    const sortedAndFilteredData = useMemo(() => {
         const filteredData = dataSource.filter((row) =>
             columns.some((column) =>
                 String(row[column.key])
@@ -41,15 +48,31 @@ function DataTable<T>({ dataSource = [], columns }: DataTableProps<T>) {
         })
 
         return sortedData
-    }
+    }, [dataSource, columns, query, sortedBy])
 
-    const currentData = sortedAndFilteredData()
+    const totalPages = Math.ceil(sortedAndFilteredData.length / rowsPerPage)
+
+    const startIndex = (currentPage - 1) * rowsPerPage
+    const endIndex = startIndex + rowsPerPage
+
+    const currentData = sortedAndFilteredData.slice(startIndex, endIndex)
 
     const handleSort = (column: keyof T) => {
         setSortedBy((prev) => ({
             column,
             asc: prev.column === column ? !prev.asc : true,
         }))
+    }
+
+    const handlePageChange = (newPage: number) => {
+        setCurrentPage(newPage)
+    }
+
+    const handleRowsPerPageChange = (
+        event: React.ChangeEvent<HTMLSelectElement>
+    ) => {
+        setRowsPerPage(parseInt(event.target.value, 10))
+        setCurrentPage(1)
     }
 
     return (
@@ -97,6 +120,36 @@ function DataTable<T>({ dataSource = [], columns }: DataTableProps<T>) {
                     ))}
                 </tbody>
             </table>
+            <div className="pagination">
+                <button
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                >
+                    Previous Page
+                </button>
+                <button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                >
+                    Next Page
+                </button>
+                <span>
+                    Page {currentPage} of {totalPages}
+                </span>
+                <label>
+                    Rows per page:
+                    <select
+                        value={rowsPerPage}
+                        onChange={handleRowsPerPageChange}
+                    >
+                        {rowsPerPageOptions.map((option) => (
+                            <option key={option} value={option}>
+                                {option}
+                            </option>
+                        ))}
+                    </select>
+                </label>
+            </div>
         </div>
     )
 }
